@@ -2,7 +2,7 @@ package db
 
 import (
 	"errors"
-	"paxos_store/utils"
+	"paxos-store/utils"
 )
 
 type operations interface {
@@ -13,33 +13,33 @@ type operations interface {
 
 var record map[string]string
 
-type data struct {
-	key string
-	value string
+type Data struct {
+	Key   string
+	Value string
 }
 
 func init() {
 	record = make(map[string]string)  // check if required
 }
 
-// For a particular key, return the value
-func (d *data) GetData(){
-	val := record[d.key]
-	d.value = val
+// For a particular Key, return the value
+func (d *Data) GetData(){
+	val := record[d.Key]
+	d.Value = val
 }
 
-// Insert the value corresponding to d.key into the data store
-func (d *data) InsertData() {
-	record[d.key] = d.value
+// Insert the value corresponding to d.Key into the Data store
+func (d *Data) InsertData() {
+	record[d.Key] = d.Value
 }
 
-// Remove the value corresponding to d.key from the data store
+// Remove the value corresponding to d.Key from the Data store
 // Return error if value does not exist
-func (d *data) DeleteData() error{
-	_, exists := record[d.key]
+func (d *Data) DeleteData() error{
+	_, exists := record[d.Key]
 	if exists != true {
 		return errors.New(utils.RecordNotFound)
 	}
-	delete(record, d.key)
+	delete(record, d.Key)
 	return nil
 }
